@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Program Affiliate Crypto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      background: rgba(30, 30, 50, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      margin-top: 20px;
+    }
+    h2, h3 {
+      text-align: center;
+      color: #00ffc3;
+      margin-bottom: 20px;
+    }
+    p {
+      text-align: center;
+      line-height: 1.6;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    input[type="text"], input[type="email"] {
+      background: #343457;
+      color: #fff;
+    }
+    button {
+      background: linear-gradient(to right, #00e0ff, #00ffc3);
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .highlight {
+      color: #33ffcc;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Gabung Program Affiliate Crypto</h2>
+    <p>Dapatkan komisi hingga <span class="highlight">25%</span> setiap kali pengguna membeli atau menjual crypto melalui link Anda!</p>
+    <p>Bagikan link unik Anda dan mulai hasilkan penghasilan pasif sekarang.</p>
+  </div>
+
+  <div class="card">
+    <h3>Daftar Sekarang</h3>
+    <label for="name">Nama Lengkap:</label>
+    <input type="text" id="name" placeholder="Nama Anda">
+
+    <label for="email">Email Aktif:</label>
+    <input type="email" id="email" placeholder="Email Anda">
+
+    <label for="access-code">Kode Akses:</label>
+    <input type="text" id="access-code" placeholder="Masukkan 4 digit kode akses">
+
+    <button onclick="registerAffiliate()">Dapatkan Link Affiliate</button>
+  </div>
+
+  <div class="card" id="affiliate-card" style="display:none;">
+    <h3>Link Affiliate Anda</h3>
+    <p>Bagikan link di bawah ini dan mulai hasilkan komisi:</p>
+    <input type="text" id="affiliate-link" readonly>
+    <button onclick="copyLink()">Salin Link</button>
+  </div>
+
+  <div class="card">
+    <h3>Cek Data Pengguna Affiliate</h3>
+    <button onclick="showAffiliateStats()">Cek Pengguna Affiliate</button>
+    <div id="stats" style="margin-top: 15px; display:none;">
+      <p>Total Pengguna Aktif: <span class="highlight">384</span></p>
+      <p>Total Komisi Dibayarkan: <span class="highlight">Rp.49.527.000</span></p>
+    </div>
+  </div>
+
+  <script>
+    function registerAffiliate() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const accessCode = document.getElementById('access-code').value.trim();
+
+      const validCodes = ["3852", "7352", "9928", "5538", "3285"];
+
+      if (!name || !email || !accessCode) {
+        alert('Mohon lengkapi semua kolom.');
+        return;
+      }
+
+      if (!validCodes.includes(accessCode)) {
+        alert('Kode akses tidak valid.');
+        return;
+      }
+
+      const encoded = btoa(`${email}-${Date.now()}`);
+      const link = `https://cryptosales.example.com/?ref=${encoded}`;
+
+      document.getElementById('affiliate-link').value = link;
+      document.getElementById('affiliate-card').style.display = 'block';
+    }
+
+    function copyLink() {
+      const linkField = document.getElementById('affiliate-link');
+      linkField.select();
+      linkField.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("Link affiliate disalin!");
+    }
+
+    function showAffiliateStats() {
+      document.getElementById('stats').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
